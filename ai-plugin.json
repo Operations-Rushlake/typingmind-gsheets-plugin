@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "google_sheets",
+  "name_for_human": "Google Sheets",
+  "description_for_model": "This plugin can list, read, and write to Google Sheets. Use it to interact with spreadsheet data when the user asks to.",
+  "description_for_human": "Allows users to list their Google Sheets files, read data from a sheet and range, and write data to a sheet and range.",
+  "auth": {
+    "type": "oauth",
+    "oauth_client_url": "https://auth.openai.com/oauth/authorize",
+    "scope": "https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive.readonly openid email profile",
+    "authorization_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://plugins-server-xbmk.onrender.com/.well-known/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://your-server-url/path-to-your-logo.png",
+  "contact_email": "your-email@example.com",
+  "legal_info_url": "https://your-server-url/legal.html"
+}
