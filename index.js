@@ -1,4 +1,4 @@
-import express from "express";
+ import express from "express";
 import { google } from "googleapis";
 
 const app = express();
@@ -46,8 +46,8 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// --- LIST SHEETS ---
-app.get("/sheets/list", requireAuth, async (req, res) => {
+// --- NEW API ENDPOINTS WITH /api/ PREFIX ---
+app.get("/api/sheets/list", requireAuth, async (req, res) => {
   try {
     const drive = google.drive({ version: "v3", auth: oauth2Client });
     const response = await drive.files.list({
@@ -62,8 +62,7 @@ app.get("/sheets/list", requireAuth, async (req, res) => {
   }
 });
 
-// --- READ SHEET ---
-app.get("/sheets/read", requireAuth, async (req, res) => {
+app.get("/api/sheets/read", requireAuth, async (req, res) => {
   try {
     const { sheetId, range } = req.query;
     if (!sheetId) return res.status(400).send("sheetId required");
@@ -80,8 +79,7 @@ app.get("/sheets/read", requireAuth, async (req, res) => {
   }
 });
 
-// --- WRITE SHEET ---
-app.post("/sheets/write", requireAuth, async (req, res) => {
+app.post("/api/sheets/write", requireAuth, async (req, res) => {
   try {
     const { sheetId, range, values } = req.body;
     if (!sheetId || !range || !values) {
@@ -102,13 +100,9 @@ app.post("/sheets/write", requireAuth, async (req, res) => {
   }
 });
 
-// --- HEALTH CHECK ---
-app.get("/health-check", (req, res) => res.send("OK"));
-
-// --- THIS NEW ROUTE WILL CATCH ALL OTHER REQUESTS ---
-// Place this at the end of all your specific API routes
+// This new route will handle all other requests, including the root URL.
 app.use((req, res, next) => {
-    res.status(404).send("API endpoint not found.");
+    res.status(404).send("API endpoint not found. Please use a valid endpoint like /api/sheets/list.");
 });
 
 // --- SERVER START ---
