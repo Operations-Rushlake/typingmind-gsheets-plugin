@@ -1,18 +1,24 @@
-# Use Node.js base image
+# Use Node.js LTS
 FROM node:18
 
 # Set working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy app source
+# Add dummy build step (Render may run this)
+RUN npm run build || echo "Skipping build step"
+
+# Copy the rest of the app
 COPY . .
 
-# Expose port
-EXPOSE 3000
+# Expose port (Render will use $PORT)
+EXPOSE 10000
 
-# Start the app
+# Start your app
 CMD ["npm", "start"]
+
