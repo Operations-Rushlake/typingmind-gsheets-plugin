@@ -1,5 +1,3 @@
-// ... existing code ...
-
 app.post("/excel-generator/generate", async (req, res) => {
     try {
         const { sheetsData, excelConfigs } = req.body;
@@ -24,6 +22,3 @@ app.post("/excel-generator/generate", async (req, res) => {
         res.status(500).json({ error: "Failed to generate Excel file." });
     }
 });
-
-<<<<<<< HEAD
-// ... exis
